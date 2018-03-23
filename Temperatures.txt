@@ -1,0 +1,78 @@
+using System;
+
+using System.Linq;
+
+using System.IO;
+
+using System.Text;
+
+using System.Collections;
+
+using System.Collections.Generic
+;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ 
+* the standard input according to the problem statement.
+
+ **/
+
+class Solution
+{
+    
+	static void Main(string[] args)
+{
+
+        	int n = int.Parse(Console.ReadLine());
+
+        	if (n == 0 )
+{
+
+            		Console.WriteLine("0");
+
+        	}
+        
+		else{
+	
+        	string[] inputs = Console.ReadLine().Split(' ');
+
+            		int result = int.Parse(inputs[0]);
+
+            		for (int i = 0; i < n; i++)
+{
+
+                		int t = int.Parse(inputs[i]);
+
+                		if ( (t < 0) && (result >= 0)){
+
+                    			if ((t * -1) < result)
+						result = t;
+
+                		}
+                
+				else if ( t < result && t >= 0)
+
+                    			result = t;
+                
+				else if ( t > result && t <= 0)
+
+			                result = t;
+
+                		else if (t > result && result < 0){
+
+                    			if ((result * -1) >= t)
+
+                    				result = t;
+
+                    		}
+
+            		}
+         
+			Console.WriteLine(result);
+        
+		}
+
+	}
+
+}

@@ -1,0 +1,48 @@
+using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution
+{
+    static void Main(string[] args)
+    {
+        string LON = Console.ReadLine().Replace(',','.');
+        string LAT = Console.ReadLine().Replace(',','.');
+        double LONG = Convert.ToDouble(LON);
+        double LATI = Convert.ToDouble(LAT);
+       // Console.WriteLine(LONG);
+        //Console.WriteLine(LATI);
+        int N = int.Parse(Console.ReadLine());
+        double diff = 1000000000000000;
+        double dist;
+        string result ="";
+        dynamic exists;
+        for (int i = 0; i < N; i++)
+        {
+            String[] DEFIB = Console.ReadLine().Split(';');
+            string name = DEFIB[1];
+            string longitude = DEFIB[4].Replace(',', '.');
+            string latitude = DEFIB[5].Replace(',', '.');
+            double long2 = Convert.ToDouble(longitude);
+            double lat2 = Convert.ToDouble(latitude);
+            double distance = Math.Pow((LATI - lat2), 2) + Math.Pow((LONG - long2), 2);
+        
+            if (distance < diff){
+                result = name;
+                diff = distance;
+            }
+        }
+
+        // Write an action using Console.WriteLine()
+        // To debug: Console.Error.WriteLine("Debug messages...");
+       // Console.WriteLine(diff);
+        Console.WriteLine(result);
+    }
+}

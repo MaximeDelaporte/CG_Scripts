@@ -1,0 +1,63 @@
+using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution
+{
+    static void Main(string[] args)
+    {
+        int L = int.Parse(Console.ReadLine());
+        int H = int.Parse(Console.ReadLine());
+        string T = Console.ReadLine();
+        string str = T.ToUpper();
+        char[] inputText = T.ToCharArray();
+        var asciiLetters = new List<string>();
+        for (int i = 0; i < H; i++)
+        {
+            string ROW = Console.ReadLine();
+            int rt = 0;
+            for (int j = 0; j < ROW.Length/L; j++)
+            {
+                if (i ==0)
+                asciiLetters.Add(ROW.Substring(rt, L));
+                else
+                asciiLetters[j] += ROW.Substring(rt, L);
+                rt +=L;
+            }
+            
+            
+        }
+        string[] linePrint = new string[H];
+        var asciiStringReconstructor = new List<string>();
+        for (int i = 0; i <inputText.Length; i++)
+        {
+            int nb = inputText[i];
+            if (nb >= 65 && nb <= 90)
+            nb -= 65;
+            else if (nb >= 97 && nb <= 122)
+            nb -= 97;
+            else
+            nb = asciiLetters.Count - 1;
+            asciiStringReconstructor.Add(asciiLetters[nb]);
+        }
+        int outPutNb = 0;
+        for (int i = 0; i < H; i++)
+        {
+            for(int j = 0; j < asciiStringReconstructor.Count; j++)
+            linePrint[i] += asciiStringReconstructor[j].Substring(outPutNb, L);
+            outPutNb += L;
+            Console.WriteLine("{0}", linePrint[i]);
+        }
+        // Write an action using Console.WriteLine()
+        // To debug: Console.Error.WriteLine("Debug messages...");
+
+        //Console.WriteLine(asciiLetters);
+    }
+}
