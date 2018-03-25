@@ -1,0 +1,83 @@
+using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Player
+{
+    static void Main(string[] args)
+    {
+        string[] inputs;
+        inputs = Console.ReadLine().Split(' ');
+        int N = int.Parse(inputs[0]); // the total number of nodes in the level, including the gateways
+        int L = int.Parse(inputs[1]); // the number of links
+        int E = int.Parse(inputs[2]); // the number of exit gateways
+        int[] exits = new int[E];
+        int[,] links = new int[N,N];
+        Random rnd = new Random();
+        for (int i = 0; i < L; i++)
+        {
+            inputs = Console.ReadLine().Split(' ');
+            int N1 = int.Parse(inputs[0]); // N1 and N2 defines a link between these nodes
+            int N2 = int.Parse(inputs[1]);
+            links[N1, N2] = 1;
+            links[N2, N1] = 1;
+            Console.Error.WriteLine(N1 + " " + N2);
+            //links.Add(N2, N1);
+        }
+        for (int i = 0; i < E; i++)
+        {
+            int EI = int.Parse(Console.ReadLine()); // the index of a gateway node
+            exits[i] = EI;
+            
+        }
+
+        // game loop
+        while (true)
+        {
+            int SI = int.Parse(Console.ReadLine()); // The index of the node on which the Skynet agent is positioned this turn
+            
+            int found = 0;
+            foreach(int exit in exits){
+                if (links[exit, SI] == 1){
+                    links[exit, SI] = 0;
+                    Console.WriteLine(exit + " " + SI);
+                    found = 1;
+                    break;
+                }
+                else if(links[SI, exit] == 1){
+                    links[SI, exit] = 0;
+                    Console.WriteLine(SI + " " + exit);
+                    found = 1;
+                    break;
+                }
+            }
+            if (found == 0){
+                int rand = rnd.Next(0,E );
+                int rand2 = rnd.Next(0, N);
+                if (rand == rand2){
+                   rand2 = rnd.Next(0, N); 
+                }
+                while(links[rand, rand2] == 0){
+                    rand2 = rnd.Next(0, N); 
+                }
+                links[rand , rand2] = 0;
+                Console.WriteLine(rand + " " + rand2);
+            }
+
+            
+            // Write an action using Console.WriteLine()
+            // To debug: Console.Error.WriteLine("Debug messages...");
+
+
+            // Example: 0 1 are the indices of the nodes you wish to sever the link between
+           // Console.WriteLine("0 1");
+        }
+    }
+}

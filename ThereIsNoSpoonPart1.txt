@@ -1,0 +1,85 @@
+using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+
+/**
+ * Don't let the machines win. You are humanity's last hope...
+ **/
+class Player
+{
+    static void Main(string[] args)
+    {
+        string result = "";
+        int width = int.Parse(Console.ReadLine()); // the number of cells on the X axis
+        int height = int.Parse(Console.ReadLine()); // the number of cells on the Y axis
+        int[,] puces = new int[height,width];
+        for (int i = 0; i < height; i++)
+        {
+            string line = Console.ReadLine();
+            for (int j = 0; j < line.Length; j++){
+                puces[i, j] = line[j];
+            }
+            // width characters, each either 0 or .
+        }
+        for (int i = 0; i < height; i ++){
+            for(int j = 0; j < width; j ++){
+                result ="";
+                if(puces[i,j] == 48){
+                    result += j + " " + i + " ";
+                    if((j + 1) < width && puces[i, j + 1] == 48){
+                        result += (j + 1) + " " + i + " ";
+                    }
+                    if((j + 1) >= width || puces[i, j + 1] != 48){
+                        int x = 2;
+                        while((j + x) < width){
+                            if( puces[i, j + x] == 48){
+                                result += (j + x) + " " + i + " ";
+                                break;
+                            }
+                            else{
+                                x++;
+                            }
+                        }
+                        if((j + x) >= width){
+                           result +=  -1 + " " + -1 +" "; 
+                        }
+                    }
+                    if((i + 1) < height && puces[i + 1, j] == 48)
+                    {
+                        result += j +" " + (i + 1) +" ";
+                    }
+                    if((i + 1) >= height || puces[i + 1, j] != 48 )
+                    {
+                        int y = 2;
+                        while((i + y) < height){
+                            if( puces[i + y, j] == 48){
+                                result += j + " " + (i + y) + " ";
+                                break;
+                            }
+                            else{
+                                y++;
+                            }
+                        }
+                        if((i + y) >= height){
+                           result +=  -1 +" " + -1 +" "; 
+                        }
+                    }
+                }
+            if (result != ""){
+               Console.WriteLine(result); 
+            }    
+            
+            }
+        }
+           
+        // Write an action using Console.WriteLine()
+        // To debug: Console.Error.WriteLine("Debug messages...");
+
+
+        // Three coordinates: a node, its right neighbor, its bottom neighbor
+        
+    }
+}
